@@ -1,0 +1,18 @@
+.content_area {
+    border-radius: 20px;
+    border: 2px solid #cdd1d4de;
+    height: 400px;
+    width: 600px;
+    margin-left: 10px;
+}
+
+.course_topic {
+    background-color: black;
+    height: 35px;
+    text-align: center;
+    color: aliceblue;
+    font-weight: 400;
+    margin-top: 0px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}

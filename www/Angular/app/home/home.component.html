@@ -1,0 +1,49 @@
+
+<div class="navbar-fixed">
+  
+    <nav>
+    <div class="container-fluid">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"><img src="/src/assets/image/Converted-PNG.png" alt="nav-logo" class="logo"></a>
+      </div>
+    </div>
+    </nav>
+   
+</div>
+
+<div class="container content">
+  <div class="row">
+    <div class="col m6 logo_section" style="text-align: center">
+        <h5 class="bold center" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: rgba(90, 84, 84, 0.61)">Chat + Task Manager. Combined.</h5>
+        <img src="/src/assets/image/banner.png" alt="banner">
+        <a class="btn" (click)="createDemo()">Click here for a Demo</a>
+    </div>
+    <div class="col m6 login_section">
+      <div class="login_wrapper">
+          <h4 class="bold center" id="home_login">LOGIN</h4>
+          <h4 class="bold center" id="home_login">{{dataservice.message}}</h4>
+          <!-- <hr> -->
+          <br>
+          <form (ngSubmit)="login()">
+              <div class="form-group">
+                  <input required="required" class="form-control" type="text" id="login_username" [(ngModel)]="dataservice.login_username" name="login_username" placeholder="Email">
+              </div>
+              <br>
+              <div class="form-group">
+                  <input required="required" class="form-control" type="password" id="login_password" [(ngModel)]="dataservice.login_password" name="login_password" placeholder="Password">
+              </div>
+              <br>
+              <div class="form-group">
+                  <input required="required" class="form-control" type="text" id="login_project" [(ngModel)]="dataservice.login_project" name="login_project" placeholder="Project Name">
+              </div>
+              <br>
+              <div class="form-group">
+                  <input class="form-control btn btn-default submit" type="submit" value="Login">
+              </div>
+          </form>
+          <br>
+          <p style="text-align: center;"><span><a href="#" class="forget_password">Forgot Password? </a> | </span> <span><a href="/createuser" class="sign_up"> SIGN UP</a></span></p>
+      </div>
+    </div>
+  </div>
+</div>

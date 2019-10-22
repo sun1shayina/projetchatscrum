@@ -1,0 +1,245 @@
+
+
+nav {
+    background-color: white;
+    box-shadow: none;
+    border-bottom: 1px;
+    
+}
+
+.nav-wrapper {
+  padding-left: 35px;
+  padding-right: 30px;
+}
+
+.logo {
+  height: 40%;
+  width: 40%;
+  padding: 10px;
+  vertical-align: center;
+}
+
+.logo-text {
+  position: absolute;
+  padding-left: 3px;
+  font-weight: 700;
+  color: #26a69a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.7rem;
+
+}
+
+nav ul a:hover {
+    background-color: white;
+    border-bottom: 4px solid #26a69a;
+    }
+    
+
+/* nav ul button {
+    background-color: white;
+    border: none;
+    box-shadow: none;
+    height: 35px;
+    margin-bottom: -25px;
+}
+
+nav ul button:hover {
+  background-color: white;
+  border-bottom: 4px solid #26a69a;
+} */
+
+#logout {
+  color: black;
+} 
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+}
+
+
+
+h2 {
+    font-size: 2.0rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+h5 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.chat_area {
+    
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+}
+
+.chat_space {
+    width: 100%;
+    
+}
+
+.send {
+    width: 100%;
+}
+
+#username {
+    color: black;
+    vertical-align: center;
+}
+#project_title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.74);
+    vertical-align: center;
+}
+
+.add-icon {
+    width: 50%!important;
+    padding: 0px;
+    box-shadow: none;
+	height: 30px;
+}
+
+.change-role {
+    width: 50%!important;
+    padding: 0px;
+    box-shadow: none;
+	height: 30px;  
+}
+#edit {
+    align-content: center;
+}
+#add {
+    align-content: center;
+}
+#
+
+/*=======================================================BOLU====================================================================*/
+
+.add-file {
+    width: 30%!important;
+    padding: 0px;
+    box-shadow: none; 
+}
+
+.div-add-file{    
+    position: absolute;
+    z-index: 1; 
+    left: -1px;
+    bottom: -7px;
+}
+
+.list_div {
+    font-size: 7px;
+    font-family: arial;
+    border:1px solid grey;
+    border-top: 6px solid lightblue;
+    border-radius: 1px;
+    width: 100px;
+    height: 100px;
+    padding:3px;
+    margin: 5px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+                    /* Tooltip container */
+.list_div {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    margin: 15px 0;
+                    }
+
+                    /* Tooltip text */
+.list_div .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: lightblue;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;                 
+                        /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: -15px ;                       
+    left: 110%;
+}
+
+                    /* Show the tooltip text when you mouse over the tooltip container */
+.list_div:hover .tooltiptext {
+    visibility: visible;
+}
+
+                                        /* Tooltip text */
+.list_div .tooltiptext2 {
+    visibility: hidden;
+    background-color: red;
+    color: black;
+    border: 1px dotted black;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+              /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1; 
+    left: -3px;
+    top: -27px;  
+}
+
+                    /* Show the tooltip text when you mouse over the tooltip container */
+.list_div:hover .tooltiptext2 {
+    visibility: visible;
+}
+
+a:link, a:visited{
+    background-color: #white;
+    color: grey;
+    padding: 3px 5px;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    color: white;
+    background-color: grey;
+}
+
+.delete_task { 
+    color: red; 
+    border: 0 solid #008CBA;
+}
+
+.delete_task:hover {
+    background-color: red;
+    color: black;
+}
+
+.s_button{
+    background-color: #1f7a7a;
+    margin-right: 10PX;
+    padding: 5PX 10PX;
+    font: bolder;
+}
+
+.s_button:hover {
+    background-color: #8c8c8c;
+    color: white;
+}

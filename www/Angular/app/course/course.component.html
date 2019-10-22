@@ -1,0 +1,109 @@
+<div class="navbar">
+  <nav>
+    <div class="nav-wrapper">
+      <div class="container">
+        <a href="#" class="brand-logo">GroupClass</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="sass.html"></a></li>
+          <li><a (click)="logout()" id="logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col s3" style="background-color:#4d394b; height: 600px;">
+      <h4 style="text-align: center;">Students</h4>
+      <ul>
+        <li>UserName1</li>
+        <li>UserName2</li>
+        <li>UserName3</li>
+      </ul>
+    </div>
+    <div class="col s6">
+      <ul style="display:flex;">
+        <li><a routerLink="./topic-videos" routerLinkActive="active" id="video">Video</a></li> |
+        <li><a routerLink="./topic-labs" routerLinkActive="active" id="lab">Labs</a></li> |
+        <li><a routerLink="./topic-chat" routerLinkActive="active" id="chat"> Chat</a></li>
+      </ul>
+      <hr>
+      
+        <!-- <router-outlet></router-outlet> -->
+        <div class="card medium">
+          <span class="card title"> Topic chat</span>
+          <div class="card-content" style="overflow:auto">
+      
+          </div>
+      
+        </div>
+        <div class="form-group" style="display:flex;">
+            <input class="form-control" type="text" id="message_box" name="message_box" placeholder="Type Your Message Here">
+            <button class="btn waves-effect waves-light" id="submit" type="submit" name="action">
+                <i class="material-icons right" id="send_icon">send</i>
+              </button>    
+        </div>
+      
+     
+    </div>
+    <div class="col s3">
+      <div class="">
+        
+          <h4 style="text-align:center;">Topics</h4>
+          <div class="course_topic_area" style="height: 450px; overflow: auto;">
+          <ul class="collection">
+              <li class="collection-item avatar">
+                <img src="images/yuna.jpg" alt="" class="circle">
+                <span class="title">Title</span>
+                <a>First Line </a>
+                
+              </li>
+              <li class="collection-item avatar">
+                <i class="material-icons circle">folder</i>
+                <span class="title">Title</span>
+                <a>First Line</a>
+                
+              </li>
+              <li class="collection-item avatar">
+                <i class="material-icons circle green">insert_chart</i>
+                <span class="title">Title</span>
+                <a>First Line </a>
+                
+              </li>
+              <li class="collection-item avatar">
+                <i class="material-icons circle red">play_arrow</i>
+                <span class="title">Title</span>
+                <a>First Line</a>
+                
+              </li>
+              <li class="collection-item avatar">
+                  <img src="images/yuna.jpg" alt="" class="circle">
+                  <span class="title">Title</span>
+                  <a>First Line </a>
+                  
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle">folder</i>
+                  <span class="title">Title</span>
+                  <a>First Line </a>
+                  
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle green">insert_chart</i>
+                  <span class="title">Title</span>
+                  <a>First Line </a>
+                  
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle red">play_arrow</i>
+                  <span class="title">Title</span>
+                  <a>First Line </a>
+                  
+                </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

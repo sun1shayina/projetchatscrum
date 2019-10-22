@@ -1,0 +1,287 @@
+<div class="navbar-fixed">  
+    <nav>
+    <div class="container-fluid">
+      <div class="nav-wrapper">
+          <div class="row">
+              <div class="col m3">
+                <img src="/src/assets/image/Converted-PNG.png" alt="nav-logo" class="logo">
+              </div>
+              <div class="col m3" style="display: flex;">
+                <h3 id="project_title" style="text-align: right">{{dataservice.project_name}}</h3>
+                <div style="float: right; display: flex; margin-top: 5px" [style.display] = "show_sprint_option ? 'block' : 'none'" >
+                    <select  name="change_sprint" style="height: 30px; margin: 15px; color: #1f7a7a; width: auto;" [(ngModel)]="dataservice.selected_sprint"  (change)="changeSprint()">
+                        <option *ngFor = "let sprint of dataservice.sprints"  [ngValue]="sprint" [selected] = "index == last ? sprint : doNothing()" >
+                            SPRINT {{sprint.id}}:  {{sprint.created_on | date}} - {{sprint.ends_on | date}}
+                        </option>                           
+                    </select>
+                </div>
+             </div>              
+             <div class="col m6">
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <button type="button" class="btn btn-link s_button"  *ngIf="dataservice.role.toLowerCase() == 'owner'" (click)="createSprint()">New Sprint</button> </li>   
+                    <li id="username"> {{dataservice.username}} - {{dataservice.role}} </li>
+                    <li><a (click)="logout()" id="logout">LOGOUT</a></li>
+                </ul>
+            </div>
+          </div>
+      </div>
+    </div>
+    </nav>   
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s2" style="height: calc(100vh - 65px); overflow: auto">
+            <div class="">                
+                <h5 style="text-align: center; padding-top: 10px">Members</h5>
+                <hr>
+                <ul *ngFor="let user of dataservice.users">
+                    <li>
+                        <table [attr.id]="'m' + user.id" (mouseover)="setSelectedUser(user.id)" (mouseleave)="setSelectedUser(-1)">
+                            <tr id="author">
+                                <th rowspan="2"><a [routerLink] fragment='{{user.id}}' (click)="scrollIntoView('u' + user.id)"><i class="material-icons" id="account_circle">account_circle</i></a></th>
+                                <a [routerLink] fragment='{{user.id}}' (click)="scrollIntoView('u' + user.id)"  style="font-size: 0.8rem">{{user.user.nickname}} ({{user.total_week_hours}} hours)</a>
+                                    <div style="display:flex;">
+                                        <a mz-button (click)="dataservice.role.toLowerCase() == 'owner' ? manageUser($event) : doNothing()" class="btn-floating change-role"><i class="material-icons" id="settings">settings</i></a>
+                                        <a mz-button (click)="getClicked($event); basicModal.openModal()" class="btn-floating add-icon"><i class="material-icons" id="add">add</i></a>
+                                    </div>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col s6" style="height: calc(100vh - 65px); overflow: auto">          
+            <div class="main_area">
+                <table>
+                    <tr>
+                        <td>
+                            <h3>{{dataservice.message}}</h3>
+                            <label>
+                            <input type="checkbox" id="ourcheck" class="filled-in" [checked]="show_zero" (click)="swapState()">
+                                <span >Show Users With No Assigned Tasks</span> 
+                            </label>
+                        </td>
+                        <td>                           
+                        </td>
+                        <td>                            
+                        </td>
+                    </tr>
+                </table>         
+                <style>
+                    .full-box {
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                        border: 2px solid black;
+                        padding: 10px;
+                    }
+                    .top-box {
+                        display: table-cell;
+                        font-size: 10pt;
+                        vertical-align: middle;
+                        text-align: center;
+                        border: 1px solid gray;
+                        border-top: 2px solid black;
+                        padding: 10px;
+                    }
+                    .reg-box {
+                        display: table-cell;
+                        font-size: 10pt;
+                        vertical-align: middle;
+                        text-align: center;
+                        border: 1px solid gray;
+                        padding: 10px;
+                    }
+
+                        select{display: block !important;}
+                        input{display: block !important;}
+                </style>
+                <div class="board-area">
+                    <div style="display: table; width: 100%; word-wrap: break-word; border-collapse: collapse; border: 2px solid black;">
+                        <div style="display: table-row">
+                            <!--
+                            <th class="full-box">Created By</th>
+                            -->
+                            <th class="full-box">Weekly Goal</th>
+                            <th class="full-box">Daily Target</th>
+                            <th class="full-box">Verify</th>
+                            <th class="full-box">Done</th>
+                        </div>
+                        <ng-container *ngFor="let user of dataservice.users; let user_index = index">
+                            <div *ngIf="user.scrumgoal_set.length == 0 && show_zero" style="display: table-row;" dragula="mainTable" [attr.id]="'u' + user.id">
+                                <td class="full-box" id="author" colspan="6">
+                                    {{user.user.nickname}} - NO TASKS ASSIGNED
+                                </td>
+                            </div>
+                            <div style="display: table-row" *ngIf="user.scrumgoal_set.length != 0" [attr.id]="'u' + user.id" [style.background]="user.id == id_click ? 'rgba(0, 128, 128, 0.5)' : (user.id == id_hover ? 'rgba(0, 128, 128, 0.15)' : 'none')" tabindex="-1">
+                                <div *ngFor="let arrItem of arrCount" class="top-box" dragula="mainTable" [attr.id]="arrItem">
+                                    <div class="div_lister" *ngFor="let goal of dataservice.sprint_goals; let j = index; let k = count" [attr.id]="'g' + goal.goal_project_id"> 
+                                            <div class="list_div" *ngIf ="goal.status == arrItem && user.id == goal.user && goal.name; let thisGoal" (dblclick)="goal.status == arrItem ? editGoal($event) : doNothing()" style="font-size: 0.8rem">
+                                                {{goal.goal_project_id}}) {{ (goal.name.length>40) ? (thisGoal | slice:0:40)+'...':(thisGoal) }} {{(goal.hours != -1 && (goal.status == 3 || goal.status == 2) ? ' (' + goal.hours + ')' : '' )}}
+                                                <a (click)="ResizeImage(goal.file); showImage.openModal()">
+                                                    <img src="http://{{dataservice.domain_name}}{{goal.file}}" style="width: 15px; height: 15px" alt="{{goal.file}}">
+                                                </a> 
+
+                                            <div class="div-add-file" style="display: inline-flex;">
+                                                <a (click)="goalClicked(goal.goal_project_id); upload.openModal()" class="add-file">
+                                                    <i class="tiny material-icons" id="add_a_photo">add_a_photo</i>
+                                                </a>
+                                                <a (click)="goalClicked(goal.goal_project_id); initGoalChat()">
+                                                    <i class="tiny material-icons" id="chat">chat</i>
+                                                </a>     
+                                                
+                                                <select name= "option{{goal.goal_project_id}}" style="height: 15px; margin: 5px; color: #1f7a7a; font-size: 10px;padding: 0; width: 60px;" [(ngModel)]="selected_history[j]" (change)= "CheckHistory(selected_history[j]); showHistory.openModal();" >
+                                                    <option [ngValue]="history1" disabled selected>History</option>
+                                                    <option *ngFor = "let history of goal.scrumgoalhistory_set" [ngValue]=history>
+                                                        {{history.message}}
+                                                    </option>                                                                          
+                                                </select> 
+                                            </div>
+                                                <span class="tooltiptext">{{goal.name}}</span>                                              
+                                                <span class="tooltiptext2">
+                                                    <button class="delete_task" (click)="deleteTask(goal.name, goal.goal_project_id)">X</button>
+                                                </span>                                  
+                                            <!-- </div> -->
+                                        </div>                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col m4">
+                <mz-modal #basicModal>
+                    <mz-modal-header>
+                        <h4>Add A Task</h4>
+                    </mz-modal-header>
+                    <mz-modal-content>
+                        <h6>Click outside this dialog to cancel.</h6>
+                        <form (ngSubmit)="addGoal()">
+                            <textarea id="goal" [(ngModel)]="dataservice.goal_name" name="goal"></textarea>
+                            <br>
+                            <input class="modal-close waves-effect btn btn-default" type="submit" value="Add Task">
+                        </form>
+                    </mz-modal-content>
+                </mz-modal>
+                <mz-modal #upload>
+                    <mz-modal-header>
+                        <h4>Add A File</h4>
+                    </mz-modal-header>
+                    <mz-modal-content>
+                        <h6>Click outside this dialog to cancel.</h6><br>
+                        <form>
+                            <label for="file">Choose File</label>
+                            <input  #Image accept="image/*" type="file" (change)="selectFile($event)">
+                            <br>
+                            <button type="button" class="modal-close waves-effect btn btn-default" (click)="imageUpload()">Upload</button>
+                        </form>
+                    </mz-modal-content>
+                </mz-modal>
+                <mz-modal #showImage>
+                    <mz-modal-header>
+                        <h4>Image</h4>
+                    </mz-modal-header>
+                    <mz-modal-content>
+                        <img src="http://{{dataservice.domain_name}}{{scrum_image}}" style="width: 450px; height: 220px" alt="image">
+                    </mz-modal-content>
+                </mz-modal>                
+                <mz-modal #showHistory >
+                        <mz-modal-header>
+                            <h4>Task History Details</h4>
+                        </mz-modal-header>
+                        <mz-modal-content>
+                            <div *ngIf="task_history">
+                                <table>
+                                    <tr  style="margin: 0; padding: 0">
+                                        <td style="font-weight: Bold; text-align: left">
+                                           Name:
+                                        </td>
+                                        <td>
+                                            {{task_history.name}}
+                                        </td>
+                                        <td rowspan="7">
+                                            <img src="http://{{dataservice.domain_name}}{{task_history.file}}" style="width: 250px; height: 220px" alt="http://{{dataservice.domain_name}}{{task_history.file}}">
+                                        </td>
+                                    </tr>
+                                    <tr style="margin: 0; padding: 0">
+                                        <td style="font-weight: Bold; text-align: left"> Status: </td>
+                                        <td>{{task_history.status}}</td>
+                                    </tr>
+                                    <tr style="margin: 0; padding: 0">
+                                        <td style="font-weight: Bold; text-align: left">Hours: </td>
+                                        <td>{{task_history.hours}}</td>
+                                    </tr>
+                                    <tr style="margin: 0; padding: 0">
+                                        <td style="font-weight: Bold; text-align: left"> Date: </td>
+                                        <td>{{task_history.time_created  | date}}</td>
+                                    </tr>
+                                    <tr style="margin: 0; padding: 0">
+                                        <td style="font-weight: Bold; text-align: left"> Changed By: </td>
+                                        <td>{{task_history.done_by}}</td>
+                                    </tr>
+                                    <tr style="margin: 0; padding: 0">
+                                        <td style="font-weight: Bold; text-align: left"> Result: </td>
+                                        <td>{{task_history.message}}</td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </mz-modal-content>
+                </mz-modal>
+                <!-- <mz-modal #chat>
+                    <mz-modal-header>
+                        <h4>Goal Chat</h4>
+                    </mz-modal-header>
+                    <mz-modal-content>
+                        <div class="card">
+                                    <h5 style="text-align: center; padding-top: 10px">Goal Chat</h5>
+                                    <hr>
+                                    <div style="overflow: auto; height: calc(100vh - 345px); padding-left: 10px; padding-right: 10px" id="chat_div_space">
+                                        <div *ngFor="let message of messages" style="font-size: 0.85rem">
+                                            <li [innerText]="message" style="list-style-type: none; padding-top: 5px; padding-bottom: 5px"></li>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row" style="padding-left: 10px; padding-right: 10px">
+                                        <div style="height: 190px; overflow: auto">
+                                            <div class="input-field col s12">
+                                                <textarea id="chat_text" class="materialize-textarea" [(ngModel)]="chat_text" (keyup.enter)="sendMessage('goal_id')" style="font-size: 0.85rem"></textarea>
+                                                <label for="chat_text">Send a message</label>
+                                            </div>
+                                        <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mz-modal-content>
+                </mz-modal> -->
+            </div>
+        </div>
+        
+        <div class="col s4" style="position: fixed; right: 0px; top: 0 px;">
+            <div class="card">
+                <h5 style="text-align: center; padding-top: 10px"> {{chat_div_title}} </h5>
+                
+                <hr>
+                <div style="text-align: right"><a style="text-align: right" (click)="initMainChat()" *ngIf=" show_project_chat"> switch to Project Chat>>> </a></div>
+                
+                <div style="overflow: auto; height: calc(100vh - 345px); padding-left: 10px; padding-right: 10px" id="chat_div_space">
+                    <div *ngFor="let message of messages" style="font-size: 0.85rem">
+                        <li [innerText]="message" style="list-style-type: none; padding-top: 5px; padding-bottom: 5px"></li>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="padding-left: 10px; padding-right: 10px">
+                    <div style="height: 190px; overflow: auto">
+                        <div class="input-field col s12">
+                            <textarea id="chat_text" class="materialize-textarea" [(ngModel)]="chat_text" (keyup.enter)="sendMessage('main_chat')" style="font-size: 0.85rem"></textarea>
+                            <label for="chat_text">Send a message</label>
+                        </div>
+
+                    <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
