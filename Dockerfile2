@@ -1,0 +1,15 @@
+FROM
+
+AUTHOR
+
+WORKDIR
+
+ENV
+
+ENV
+
+RUN
+
+COPY 
+
+CMD 
